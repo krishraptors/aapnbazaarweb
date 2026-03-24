@@ -3,10 +3,10 @@
 ## 1. Application Overview
 
 ### 1.1 Application Name
-Aapnbazaar
+AapnBazaar
 
 ### 1.2 Application Description
-Aapnbazaar is a next-generation B2B e-commerce platform built to simplify how factories, wholesalers, and shops do business. We connect verified manufacturers directly with buyers, removing unnecessary middlemen and enabling zero-commission trading.\n
+AapnBazaar is a next-generation B2B e-commerce platform built to simplify how factories, wholesalers, and shops do business. We connect verified manufacturers directly with buyers, removing unnecessary middlemen and enabling zero-commission trading.\n
 ### 1.3 Core Value Propositions
 - Zero Commission – Businesses keep what they earn
 - Direct Factory-to-Shop Network – Faster deals, better pricing

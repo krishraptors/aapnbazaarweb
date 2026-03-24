@@ -33,7 +33,7 @@ export default function AppDownload() {
             </div>
 
             <h2 className="text-3xl xl:text-5xl font-bold">
-              Download the <span className="gradient-text">Aapnbazaar App</span>
+              Download the <span className="gradient-text">AapnBazaar App</span>
             </h2>
 
             <p className="text-lg text-muted-foreground">

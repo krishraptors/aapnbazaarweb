@@ -118,7 +118,7 @@ export default function Contact() {
               <WhatsAppButton
                 size="lg"
                 className="w-full"
-                message="Hello! I have a question about Aapnbazaar."
+                message="Hello! I have a question about AapnBazaar."
               />
             </div>
           </div>

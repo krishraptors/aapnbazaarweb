@@ -75,7 +75,7 @@ export default function VendorForm() {
             Register as a <span className="gradient-text">Vendor</span>
           </h2>
           <p className="text-lg text-muted-foreground">
-            Join thousands of businesses already trading on Aapnbazaar. Fill out the form below to get started.
+            Join thousands of businesses already trading on AapnBazaar. Fill out the form below to get started.
           </p>
         </div>
 

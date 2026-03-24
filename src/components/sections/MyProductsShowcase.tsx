@@ -12,7 +12,8 @@ import { motion } from 'motion/react';
 
 const productCategories = [
   {
-    id: 'product-aapnbazaar',
+    id: 'product-AapnBazaar',
+    href: '#product-AapnBazaar',
     title: 'AapnBazaar',
     tag: 'B2B Commerce',
     description:
@@ -25,6 +26,7 @@ const productCategories = [
   },
   {
     id: 'golamart-section',
+    href: '/my-product',
     title: 'GolaMart',
     tag: 'Agritech Marketplace',
     description:
@@ -39,7 +41,7 @@ const productCategories = [
 
 const productDetails = [
   {
-    id: 'product-aapnbazaar',
+    id: 'product-AapnBazaar',
     title: 'AapnBazaar',
     eyebrow: 'Marketplace Product 01',
     subtitle: 'The main B2B ecommerce engine for wholesale trade.',
@@ -105,7 +107,7 @@ export default function MyProductsShowcase() {
           {productCategories.map((product, index) => (
             <motion.a
               key={product.title}
-              href={`#${product.id}`}
+              href={product.href}
               className={`group relative overflow-hidden rounded-[32px] border p-6 shadow-[0_24px_80px_-52px_hsl(var(--foreground)/0.45)] transition-all duration-500 hover:-translate-y-1 sm:p-7 ${product.className}`}
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}

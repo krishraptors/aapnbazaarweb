@@ -91,6 +91,39 @@ const indiaCropCategories = [
 ];
 
 const quickCropSearches = ['Paddy', 'White Wheat', 'Maize', 'Makhana', 'Litchi', 'Mustard'];
+const marketIntelligence = [
+  {
+    title: 'Top Bihar demand',
+    items: ['Patna grain demand', 'Muzaffarpur fruit flow', 'Nalanda vegetable movement'],
+  },
+  {
+    title: 'Procurement mode',
+    items: ['Bulk mandi pickups', 'Regional buyer aggregation', 'Direct farmer sourcing'],
+  },
+  {
+    title: 'Dispatch readiness',
+    items: ['Same-day order capture', 'Next-slot transport planning', 'Settlement-ready buyer flow'],
+  },
+];
+
+const marketCorridors = [
+  {
+    title: 'Patna and Nalanda',
+    description: 'White wheat, potato, onion, and daily retail-linked crop movement.',
+  },
+  {
+    title: 'Purnea and Bhagalpur',
+    description: 'Paddy, maize, jute, and grain board activity for bulk buyers.',
+  },
+  {
+    title: 'Mithila and Muzaffarpur',
+    description: 'Makhana, litchi, banana, and premium specialty produce lanes.',
+  },
+  {
+    title: 'Pan-India supply bridge',
+    description: 'Cotton, turmeric, groundnut, and chana for wider sourcing beyond Bihar.',
+  },
+];
 const quickCommerceLanes = [
   {
     title: 'Bihar grain lane',
@@ -124,6 +157,24 @@ const quickCommerceLanes = [
       'border-sky-200/80 bg-[linear-gradient(135deg,rgba(255,255,255,0.96),rgba(224,242,254,0.88))] dark:border-sky-900/60 dark:bg-[linear-gradient(135deg,rgba(9,16,31,0.98),rgba(18,50,79,0.88))]',
     icon: Leaf,
   },
+];
+const flashBoardSignals = [
+  { label: 'Morning board', value: 'Paddy + wheat quotes' },
+  { label: 'Fast lane', value: 'Sabzi and fruit movement' },
+  { label: 'Premium board', value: 'Makhana and litchi demand' },
+];
+const biharHotBoard = [
+  'Bhagalpur Sonam paddy',
+  'Patna white wheat',
+  'Purnea maize arrivals',
+  'Darbhanga makhana',
+  'Muzaffarpur litchi',
+  'Nalanda potato and onion',
+];
+const buyerWindows = [
+  'Early grain procurement for Bihar distributors',
+  'Midday fruit and specialty sourcing for premium buyers',
+  'Evening dispatch planning with mandi-linked demand windows',
 ];
 
 const filterSelectClassName =
@@ -490,6 +541,22 @@ export default function MyProduct() {
                     </button>
                   ))}
                 </div>
+
+                <div className="mt-5 grid gap-3 sm:grid-cols-3">
+                  {flashBoardSignals.map((item) => (
+                    <div
+                      key={item.label}
+                      className="rounded-[22px] border border-emerald-200/80 bg-white/90 p-4 shadow-sm dark:border-white/10 dark:bg-white/8"
+                    >
+                      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-emerald-700 dark:text-emerald-300">
+                        {item.label}
+                      </p>
+                      <p className="mt-2 text-sm font-medium text-emerald-950 dark:text-white/84">
+                        {item.value}
+                      </p>
+                    </div>
+                  ))}
+                </div>
               </div>
             </motion.div>
           </div>
@@ -547,7 +614,7 @@ export default function MyProduct() {
                 transition={{ duration: 0.5, delay: index * 0.08 }}
                 viewport={{ once: true }}
               >
-                <Card className="agri-card h-full border-emerald-200/80">
+                <Card className="h-full border-emerald-200/80 bg-[linear-gradient(180deg,rgba(255,255,255,0.98),rgba(240,253,244,0.94))] shadow-[0_24px_60px_-42px_rgba(22,101,52,0.16)] dark:border-emerald-900/50 dark:bg-[linear-gradient(180deg,rgba(5,22,14,0.98),rgba(8,34,22,0.92))]">
                   <CardContent className="p-6">
                     <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-100 text-emerald-700">
                       <feature.icon className="h-6 w-6" />
@@ -567,7 +634,7 @@ export default function MyProduct() {
       <section className="pb-16">
         <div className="container px-4">
           <div className="grid gap-6 xl:grid-cols-[1.02fr_0.98fr]">
-            <Card className="agri-card border-emerald-200/80">
+            <Card className="border-emerald-200/80 bg-[linear-gradient(180deg,rgba(255,255,255,0.98),rgba(244,253,247,0.96))] shadow-[0_24px_70px_-48px_rgba(22,101,52,0.14)] dark:border-emerald-900/50 dark:bg-[linear-gradient(180deg,rgba(6,24,16,0.98),rgba(8,34,22,0.94))]">
               <CardContent className="p-6 sm:p-8">
                 <div className="flex items-start justify-between gap-4">
                   <div>
@@ -587,7 +654,7 @@ export default function MyProduct() {
                   {biharSeasonBoards.map((item) => (
                     <div
                       key={item.season}
-                      className="rounded-[28px] border border-emerald-200/80 bg-[linear-gradient(180deg,rgba(240,253,244,0.98),rgba(220,252,231,0.72))] p-5"
+                      className="rounded-[28px] border border-emerald-200/80 bg-[linear-gradient(180deg,rgba(255,255,255,0.98),rgba(236,253,245,0.88))] p-5 dark:border-emerald-900/50 dark:bg-[linear-gradient(180deg,rgba(8,34,22,0.94),rgba(10,45,27,0.88))]"
                     >
                       <div className="flex items-center justify-between gap-4">
                         <p className="text-sm font-semibold uppercase tracking-[0.22em] text-emerald-700">
@@ -603,10 +670,42 @@ export default function MyProduct() {
                     </div>
                   ))}
                 </div>
+
+                <div className="mt-6 grid gap-4 lg:grid-cols-[1.02fr_0.98fr]">
+                  <div className="rounded-[28px] border border-emerald-200/80 bg-white/92 p-5 dark:border-emerald-900/50 dark:bg-white/6">
+                    <p className="text-sm font-semibold uppercase tracking-[0.22em] text-emerald-700 dark:text-emerald-300">
+                      Hot on the Bihar board
+                    </p>
+                    <div className="mt-4 flex flex-wrap gap-2">
+                      {biharHotBoard.map((item) => (
+                        <span
+                          key={item}
+                          className="rounded-full border border-emerald-200/80 bg-emerald-50/90 px-3 py-1.5 text-xs font-semibold text-emerald-800 dark:border-white/10 dark:bg-white/8 dark:text-white/78"
+                        >
+                          {item}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="rounded-[28px] border border-emerald-200/80 bg-[linear-gradient(180deg,rgba(16,72,45,0.98),rgba(22,101,52,0.94))] p-5 text-white shadow-lg">
+                    <p className="text-sm font-semibold uppercase tracking-[0.22em] text-white/70">
+                      Buyer windows
+                    </p>
+                    <div className="mt-4 space-y-3">
+                      {buyerWindows.map((item) => (
+                        <div key={item} className="flex items-start gap-3 rounded-2xl bg-white/8 px-4 py-3">
+                          <div className="mt-1 h-2.5 w-2.5 rounded-full bg-lime-300" />
+                          <p className="text-sm leading-6 text-white/82">{item}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
               </CardContent>
             </Card>
 
-            <Card className="agri-card border-emerald-200/80 bg-[linear-gradient(180deg,#14532d,#166534)] text-background shadow-[0_24px_80px_-52px_rgba(22,101,52,0.42)]">
+            <Card className="border-emerald-300/40 bg-[linear-gradient(180deg,#0f3f27,#166534)] text-background shadow-[0_24px_80px_-52px_rgba(22,101,52,0.42)]">
               <CardContent className="p-6 sm:p-8">
                 <p className="text-sm font-semibold uppercase tracking-[0.22em] text-background/70">
                   India crop map
@@ -641,6 +740,60 @@ export default function MyProduct() {
                       </div>
                     </div>
                   ))}
+                </div>
+
+                <div className="mt-6 grid gap-4 lg:grid-cols-[0.92fr_1.08fr]">
+                  <div className="rounded-[26px] border border-white/10 bg-white/8 p-5">
+                    <p className="text-sm font-semibold uppercase tracking-[0.22em] text-white/70">
+                      Market intelligence
+                    </p>
+                    <div className="mt-4 space-y-4">
+                      {marketIntelligence.map((group) => (
+                        <div key={group.title} className="rounded-2xl border border-white/10 bg-white/6 p-4">
+                          <p className="font-heading text-lg font-semibold text-white">{group.title}</p>
+                          <div className="mt-3 space-y-2">
+                            {group.items.map((item) => (
+                              <div
+                                key={item}
+                                className="flex items-center gap-3 text-sm text-white/78"
+                              >
+                                <div className="h-2.5 w-2.5 rounded-full bg-lime-300" />
+                                <span>{item}</span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="rounded-[26px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0.04))] p-5">
+                    <div className="flex items-start justify-between gap-4">
+                      <div>
+                        <p className="text-sm font-semibold uppercase tracking-[0.22em] text-white/70">
+                          Trade corridors
+                        </p>
+                        <h3 className="font-heading mt-2 text-2xl font-semibold text-white">
+                          Real buyer and mandi lanes, not an empty side panel
+                        </h3>
+                      </div>
+                      <div className="rounded-full bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-white/72">
+                        Live board feel
+                      </div>
+                    </div>
+
+                    <div className="mt-5 grid gap-3">
+                      {marketCorridors.map((item) => (
+                        <div
+                          key={item.title}
+                          className="rounded-[22px] border border-white/10 bg-white/8 p-4"
+                        >
+                          <p className="font-heading text-lg font-semibold text-white">{item.title}</p>
+                          <p className="mt-2 text-sm leading-6 text-white/72">{item.description}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 </div>
               </CardContent>
             </Card>
@@ -709,6 +862,32 @@ export default function MyProduct() {
 
             <div className="space-y-6 xl:sticky xl:top-28 xl:self-start">
               <SellForm isSubmitting={isSelling} onSubmit={handleCreateProduct} />
+
+              <Card className="border-emerald-200/80 bg-[linear-gradient(180deg,rgba(255,255,255,0.98),rgba(240,253,244,0.94))] shadow-[0_24px_70px_-48px_rgba(22,101,52,0.15)] dark:border-emerald-900/50 dark:bg-[linear-gradient(180deg,rgba(6,24,16,0.98),rgba(8,34,22,0.94))]">
+                <CardContent className="p-6 sm:p-7">
+                  <p className="text-sm font-semibold uppercase tracking-[0.22em] text-emerald-700 dark:text-emerald-300">
+                    Today on GolaMart
+                  </p>
+                  <h3 className="font-heading mt-2 text-2xl font-semibold">
+                    Dense buyer board, not an empty side rail
+                  </h3>
+                  <div className="mt-5 grid gap-3">
+                    {quickCropSearches.map((item) => (
+                      <button
+                        key={item}
+                        type="button"
+                        onClick={() => setSearchQuery(item)}
+                        className="flex items-center justify-between rounded-[20px] border border-emerald-200/80 bg-white/90 px-4 py-3 text-left text-sm font-medium text-emerald-950 transition-all duration-300 hover:-translate-y-px hover:border-emerald-300 hover:bg-emerald-50 dark:border-white/10 dark:bg-white/8 dark:text-white/82 dark:hover:bg-white/10"
+                      >
+                        <span>{item}</span>
+                        <span className="text-xs font-semibold uppercase tracking-[0.16em] text-emerald-700 dark:text-emerald-300">
+                          Open
+                        </span>
+                      </button>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
 
               <Card className="border-emerald-300/40 bg-[linear-gradient(180deg,#14532d,#166534)] text-background shadow-[0_24px_80px_-52px_rgba(22,101,52,0.42)]">
                 <CardContent className="p-6 sm:p-7">

@@ -1,4 +1,4 @@
-# Task: Build Aapnbazaar B2B E-commerce Platform Website
+# Task: Build AapnBazaar B2B E-commerce Platform Website
 
 ## Plan
 - [x] Step 1: Initialize Supabase and create database schema

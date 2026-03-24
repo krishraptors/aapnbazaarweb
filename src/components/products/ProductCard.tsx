@@ -35,11 +35,11 @@ export default function ProductCard({
   }, [product.quantity]);
 
   return (
-    <Card className="agri-card h-full overflow-hidden border-emerald-200/80 bg-background/95 shadow-[0_24px_80px_-52px_rgba(22,101,52,0.24)]">
+    <Card className="h-full overflow-hidden border-emerald-200/80 bg-[linear-gradient(180deg,rgba(255,255,255,0.98),rgba(240,253,244,0.94))] shadow-[0_24px_80px_-52px_rgba(22,101,52,0.18)] dark:border-emerald-900/50 dark:bg-[linear-gradient(180deg,rgba(6,24,16,0.98),rgba(8,34,22,0.94))]">
       <CardContent className="p-6">
         <div className="flex items-start justify-between gap-4">
           <div>
-            <div className="inline-flex items-center gap-2 rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-emerald-700">
+            <div className="inline-flex items-center gap-2 rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-300">
               Live mandi pulse
             </div>
             <h3 className="font-heading mt-4 text-2xl font-semibold">{product.cropName}</h3>
@@ -52,7 +52,7 @@ export default function ProductCard({
                 {metaChips.map((item) => (
                   <span
                     key={item}
-                    className="rounded-full border border-emerald-200/80 bg-white/80 px-3 py-1 text-xs font-semibold text-emerald-800"
+                    className="rounded-full border border-emerald-200/80 bg-white/88 px-3 py-1 text-xs font-semibold text-emerald-800 dark:border-white/10 dark:bg-white/10 dark:text-white/78"
                   >
                     {item}
                   </span>
@@ -67,18 +67,18 @@ export default function ProductCard({
         </div>
 
         <div className="mt-6 grid gap-4 sm:grid-cols-3">
-          <div className="rounded-2xl border border-emerald-200/70 bg-emerald-50/80 px-4 py-4">
+          <div className="rounded-2xl border border-emerald-200/70 bg-emerald-50/90 px-4 py-4 dark:border-emerald-900/50 dark:bg-emerald-500/10">
             <p className="text-xs uppercase tracking-[0.18em] text-muted-foreground">Available</p>
             <p className="font-heading mt-2 text-xl font-semibold">{product.quantity} qtl</p>
           </div>
-          <div className="rounded-2xl border border-lime-200/70 bg-lime-50/80 px-4 py-4">
+          <div className="rounded-2xl border border-lime-200/70 bg-lime-50/90 px-4 py-4 dark:border-lime-900/50 dark:bg-lime-500/10">
             <p className="text-xs uppercase tracking-[0.18em] text-muted-foreground">Farmer</p>
             <p className="mt-2 text-sm font-medium text-foreground">
               {product.farmer?.name ?? 'Verified partner'}
             </p>
             <p className="text-xs text-muted-foreground">{product.farmer?.phone ?? 'On request'}</p>
           </div>
-          <div className="rounded-2xl border border-emerald-200/70 bg-background/90 px-4 py-4">
+          <div className="rounded-2xl border border-emerald-200/70 bg-white/92 px-4 py-4 dark:border-white/10 dark:bg-white/8">
             <p className="text-xs uppercase tracking-[0.18em] text-muted-foreground">Market</p>
             <div className="mt-2 flex items-center gap-2 text-sm text-foreground">
               <Truck className="h-4 w-4 text-emerald-700" />
@@ -87,7 +87,7 @@ export default function ProductCard({
           </div>
         </div>
 
-        <div className="agri-soft mt-6 space-y-3 rounded-[28px] border border-emerald-200/70 p-4">
+        <div className="agri-soft mt-6 space-y-3 rounded-[28px] border border-emerald-200/70 p-4 dark:border-white/10">
           <div className="flex items-center gap-2 text-sm font-medium text-foreground">
             <ShoppingBasket className="h-4 w-4 text-emerald-700" />
             Order quantity

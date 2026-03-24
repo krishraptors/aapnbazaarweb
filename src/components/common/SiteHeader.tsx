@@ -10,7 +10,7 @@ const navItems = [
   { label: 'Solutions', href: '/#solutions' },
   { label: 'My Products', href: '/#my-products' },
   { label: 'Global Reach', href: '/#global-services' },
-  { label: 'GolaMart', href: '/#golamart-section' },
+  { label: 'GolaMart', href: '/my-product' },
   { label: 'Contact', href: '/#contact' },
 ];
 
@@ -24,8 +24,8 @@ export default function SiteHeader() {
       return location.pathname === '/' && (!location.hash || location.hash === '#home');
     }
 
-    if (href === '/#golamart-section') {
-      return currentHref === href || location.pathname.startsWith('/my-product');
+    if (href === '/my-product') {
+      return location.pathname.startsWith('/my-product');
     }
 
     return currentHref === href;

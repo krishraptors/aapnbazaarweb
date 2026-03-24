@@ -8,7 +8,7 @@ export default function Footer() {
       { name: 'Home', href: '/#home' },
       { name: 'Solutions', href: '/#solutions' },
       { name: 'My Products', href: '/#my-products' },
-      { name: 'GolaMart', href: '/#golamart-section' },
+      { name: 'GolaMart', href: '/my-product' },
       { name: 'Global Reach', href: '/#global-services' },
       { name: 'Contact', href: '/#contact' }
     ],
@@ -20,8 +20,8 @@ export default function Footer() {
       { name: 'WhatsApp Support', href: 'https://wa.me/919876543210' }
     ],
     business: [
-      { name: 'AapnBazaar Marketplace', href: '/#product-aapnbazaar' },
-      { name: 'GolaMart Agritech', href: '/#golamart-section' },
+      { name: 'AapnBazaar Marketplace', href: '/#product-AapnBazaar' },
+      { name: 'GolaMart Agritech', href: '/my-product' },
       { name: 'Global Delivery', href: '/#global-services' },
       { name: 'Vendor Registration', href: '/#contact' }
     ]
@@ -46,7 +46,7 @@ export default function Footer() {
                 alt="AapnBazaar logo"
                 className="h-12 w-12 rounded-full object-cover ring-1 ring-primary/15"
               />
-              <h3 className="text-2xl font-bold gradient-text">Aapnbazaar</h3>
+              <h3 className="text-2xl font-bold gradient-text">AapnBazaar</h3>
             </div>
             <p className="text-muted-foreground max-w-md">
               India's first zero-commission B2B marketplace connecting factories, wholesalers, and shops directly. Trade freely, grow faster.
@@ -115,7 +115,7 @@ export default function Footer() {
         {/* Bottom section */}
         <div className="mt-12 pt-8 border-t border-border flex flex-col xl:flex-row justify-between items-center gap-4">
           <p className="text-sm text-muted-foreground">
-            © {currentYear} Aapnbazaar. All rights reserved.
+            © {currentYear} AapnBazaar. All rights reserved.
           </p>
 
           {/* Social links */}

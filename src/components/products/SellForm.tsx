@@ -118,10 +118,10 @@ export default function SellForm({ isSubmitting = false, onSubmit }: SellFormPro
   };
 
   return (
-    <Card className="agri-card border-emerald-200/80 shadow-[0_24px_80px_-52px_rgba(22,101,52,0.24)]">
+    <Card className="border-emerald-200/80 bg-[linear-gradient(180deg,rgba(255,255,255,0.98),rgba(240,253,244,0.94))] shadow-[0_24px_80px_-52px_rgba(22,101,52,0.18)] dark:border-emerald-900/50 dark:bg-[linear-gradient(180deg,rgba(6,24,16,0.98),rgba(8,34,22,0.94))]">
       <CardContent className="p-6 sm:p-7">
         <div className="mb-6">
-          <div className="inline-flex items-center gap-2 rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-emerald-700">
+          <div className="inline-flex items-center gap-2 rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-300">
             Farmer onboarding
           </div>
           <h3 className="font-heading mt-4 text-2xl font-semibold">Sell crops on GolaMart</h3>
