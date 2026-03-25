@@ -15,7 +15,7 @@ const testimonials = [
     role: 'Founder &CEO, Denny Concepcion Concepcion',
     content: 'Outstanding mobile app development. They delivered a cross-platform solution that exceeded our expectations.',
     rating: 5,
-    avatar: ''
+    avatar: '🇺🇸'
   },
   {
     name: 'Priya Sharma',

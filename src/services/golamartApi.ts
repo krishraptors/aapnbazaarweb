@@ -11,14 +11,22 @@ import type {
 
 const detectedHost =
   typeof window !== 'undefined' ? window.location.hostname || '127.0.0.1' : '127.0.0.1';
+const isLocalHost = detectedHost === '127.0.0.1' || detectedHost === 'localhost';
+const currentOriginApi =
+  typeof window !== 'undefined' ? `${window.location.origin}/api` : undefined;
 
 const apiCandidates = Array.from(
   new Set(
-    [
-      import.meta.env.VITE_GOLAMART_API_URL,
-      `http://${detectedHost}:5000/api`,
-      `http://${detectedHost}:5050/api`,
-    ].filter(Boolean)
+    (
+      isLocalHost
+        ? [
+            import.meta.env.VITE_GOLAMART_API_URL,
+            `http://${detectedHost}:5000/api`,
+            `http://${detectedHost}:5050/api`,
+            currentOriginApi,
+          ]
+        : [import.meta.env.VITE_GOLAMART_API_URL, currentOriginApi]
+    ).filter(Boolean)
   )
 );
 
@@ -26,7 +34,7 @@ const golamartClient = axios.create({
   timeout: 10000,
 });
 
-let activeBaseUrl = apiCandidates[0] ?? `http://${detectedHost}:5000/api`;
+let activeBaseUrl = apiCandidates[0] ?? (isLocalHost ? `http://${detectedHost}:5000/api` : '/api');
 
 type RawProduct = {
   _id: string;
@@ -64,25 +72,38 @@ const toMessage = (error: unknown) => {
   return error instanceof Error ? error.message : 'Unexpected error';
 };
 
-const shouldRetryNextBaseUrl = (error: unknown) =>
-  axios.isAxiosError(error) &&
-  (!error.response ||
-    error.code === 'ERR_NETWORK' ||
-    error.code === 'ECONNREFUSED' ||
-    error.code === 'ETIMEDOUT');
+const createInvalidResponseError = (message: string) => {
+  const error = new Error(message) as Error & { code?: string };
+  error.code = 'INVALID_RESPONSE_SHAPE';
+  return error;
+};
 
-const request = async <T>(config: Parameters<typeof golamartClient.request<T>>[0]) => {
+const shouldRetryNextBaseUrl = (error: unknown) =>
+  (axios.isAxiosError(error) &&
+    (!error.response ||
+      error.code === 'ERR_NETWORK' ||
+      error.code === 'ECONNREFUSED' ||
+      error.code === 'ETIMEDOUT')) ||
+  (error instanceof Error &&
+    'code' in error &&
+    (error as Error & { code?: string }).code === 'INVALID_RESPONSE_SHAPE');
+
+const requestParsed = async <T>(
+  config: Parameters<typeof golamartClient.request<unknown>>[0],
+  parse: (data: unknown) => T
+) => {
   const candidates = [activeBaseUrl, ...apiCandidates.filter((url) => url !== activeBaseUrl)];
   let lastError: unknown;
 
   for (const baseURL of candidates) {
     try {
-      const response = await golamartClient.request<T>({
+      const response = await golamartClient.request<unknown>({
         ...config,
         baseURL,
       });
+      const parsed = parse(response.data);
       activeBaseUrl = baseURL;
-      return response;
+      return parsed;
     } catch (error) {
       lastError = error;
 
@@ -97,6 +118,37 @@ const request = async <T>(config: Parameters<typeof golamartClient.request<T>>[0
 
 const normalizeUser = (value?: string | UserSummary) =>
   value && typeof value === 'object' ? value : undefined;
+
+const isRecord = (value: unknown): value is Record<string, unknown> =>
+  typeof value === 'object' && value !== null && !Array.isArray(value);
+
+const extractCollection = <T>(data: unknown, key: string, label: string): T[] => {
+  if (Array.isArray(data)) {
+    return data as T[];
+  }
+
+  if (isRecord(data) && Array.isArray(data[key])) {
+    return data[key] as T[];
+  }
+
+  throw createInvalidResponseError(
+    `${label} backend response is invalid. Check that the GolaMart API is connected and returning JSON arrays.`
+  );
+};
+
+const extractEntity = <T>(data: unknown, key: string, label: string): T => {
+  if (isRecord(data) && isRecord(data[key])) {
+    return data[key] as T;
+  }
+
+  if (isRecord(data)) {
+    return data as T;
+  }
+
+  throw createInvalidResponseError(
+    `${label} backend response is invalid. Check that the GolaMart API is connected and returning JSON objects.`
+  );
+};
 
 const normalizeProduct = (product: RawProduct): Product => ({
   _id: product._id,
@@ -115,7 +167,7 @@ const normalizeProduct = (product: RawProduct): Product => ({
 const normalizeOrder = (order: RawOrder): Order => ({
   _id: order._id,
   buyer: normalizeUser(order.buyerId),
-  products: order.products.map((item) => ({
+  products: (Array.isArray(order.products) ? order.products : []).map((item) => ({
     productId: item.productId ?? '',
     cropName: item.cropName,
     quantity: item.quantity,
@@ -129,11 +181,14 @@ const normalizeOrder = (order: RawOrder): Order => ({
 export const golamartApi = {
   async listProducts() {
     try {
-      const { data } = await request<{ products: RawProduct[] }>({
+      const products = await requestParsed(
+        {
         method: 'GET',
         url: '/products',
-      });
-      return data.products.map(normalizeProduct);
+        },
+        (data) => extractCollection<RawProduct>(data, 'products', 'Product list')
+      );
+      return products.map(normalizeProduct);
     } catch (error) {
       throw new Error(toMessage(error));
     }
@@ -141,12 +196,15 @@ export const golamartApi = {
 
   async createProduct(payload: CreateProductPayload) {
     try {
-      const { data } = await request<{ product: RawProduct }>({
-        method: 'POST',
-        url: '/products',
-        data: payload,
-      });
-      return normalizeProduct(data.product);
+      const product = await requestParsed(
+        {
+          method: 'POST',
+          url: '/products',
+          data: payload,
+        },
+        (data) => extractEntity<RawProduct>(data, 'product', 'Create product')
+      );
+      return normalizeProduct(product);
     } catch (error) {
       throw new Error(toMessage(error));
     }
@@ -154,12 +212,15 @@ export const golamartApi = {
 
   async createOrder(payload: CreateOrderPayload) {
     try {
-      const { data } = await request<{ order: RawOrder }>({
-        method: 'POST',
-        url: '/orders',
-        data: payload,
-      });
-      return normalizeOrder(data.order);
+      const order = await requestParsed(
+        {
+          method: 'POST',
+          url: '/orders',
+          data: payload,
+        },
+        (data) => extractEntity<RawOrder>(data, 'order', 'Create order')
+      );
+      return normalizeOrder(order);
     } catch (error) {
       throw new Error(toMessage(error));
     }
@@ -167,11 +228,14 @@ export const golamartApi = {
 
   async listOrders() {
     try {
-      const { data } = await request<{ orders: RawOrder[] }>({
-        method: 'GET',
-        url: '/orders',
-      });
-      return data.orders.map(normalizeOrder);
+      const orders = await requestParsed(
+        {
+          method: 'GET',
+          url: '/orders',
+        },
+        (data) => extractCollection<RawOrder>(data, 'orders', 'Order list')
+      );
+      return orders.map(normalizeOrder);
     } catch (error) {
       throw new Error(toMessage(error));
     }
@@ -179,12 +243,15 @@ export const golamartApi = {
 
   async updateOrderStatus(orderId: string, status: OrderStatus) {
     try {
-      const { data } = await request<{ order: RawOrder }>({
-        method: 'PATCH',
-        url: `/orders/${orderId}/status`,
-        data: { status },
-      });
-      return normalizeOrder(data.order);
+      const order = await requestParsed(
+        {
+          method: 'PATCH',
+          url: `/orders/${orderId}/status`,
+          data: { status },
+        },
+        (data) => extractEntity<RawOrder>(data, 'order', 'Update order')
+      );
+      return normalizeOrder(order);
     } catch (error) {
       throw new Error(toMessage(error));
     }

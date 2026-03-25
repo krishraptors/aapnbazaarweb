@@ -33,7 +33,9 @@ const normalizeProduct = (product) => {
     farmerId:
       raw.farmerId && typeof raw.farmerId === 'object'
         ? normalizeUser(raw.farmerId)
-        : String(raw.farmerId),
+        : raw.farmerId
+          ? String(raw.farmerId)
+          : undefined,
   };
 };
 
@@ -46,13 +48,17 @@ const normalizeOrder = (order) => {
     buyerId:
       raw.buyerId && typeof raw.buyerId === 'object'
         ? normalizeUser(raw.buyerId)
-        : String(raw.buyerId),
-    products: raw.products.map((item) => ({
+        : raw.buyerId
+          ? String(raw.buyerId)
+          : undefined,
+    products: (Array.isArray(raw.products) ? raw.products : []).map((item) => ({
       ...item,
       productId:
         item.productId && typeof item.productId === 'object'
           ? normalizeProduct(item.productId)
-          : String(item.productId),
+          : item.productId
+            ? String(item.productId)
+            : undefined,
     })),
   };
 };

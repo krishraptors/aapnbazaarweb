@@ -2,7 +2,10 @@ const fs = require('fs/promises');
 const path = require('path');
 const crypto = require('crypto');
 
-const dataFilePath = path.join(__dirname, '..', 'data', 'golamart-dev.json');
+const bundledDataFilePath = path.join(__dirname, '..', 'data', 'golamart-dev.json');
+const dataFilePath = process.env.VERCEL
+  ? path.join('/tmp', 'golamart-dev.json')
+  : bundledDataFilePath;
 
 const initialStore = {
   users: [],
@@ -28,7 +31,12 @@ const ensureStoreFile = async () => {
   try {
     await fs.access(dataFilePath);
   } catch (_error) {
-    await fs.writeFile(dataFilePath, JSON.stringify(initialStore, null, 2));
+    try {
+      const seed = await fs.readFile(bundledDataFilePath, 'utf8');
+      await fs.writeFile(dataFilePath, seed);
+    } catch (_seedError) {
+      await fs.writeFile(dataFilePath, JSON.stringify(initialStore, null, 2));
+    }
   }
 };
 
