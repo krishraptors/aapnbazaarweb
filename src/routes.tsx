@@ -1,12 +1,13 @@
-import Home from './pages/Home';
-import MyProduct from './pages/MyProduct';
-import AdminGolaMart from './pages/AdminGolaMart';
-import type { ReactNode } from 'react';
+import { lazy, type ComponentType } from 'react';
+
+const Home = lazy(() => import('./pages/Home'));
+const MyProduct = lazy(() => import('./pages/MyProduct'));
+const AdminGolaMart = lazy(() => import('./pages/AdminGolaMart'));
 
 interface RouteConfig {
   name: string;
   path: string;
-  element: ReactNode;
+  component: ComponentType;
   visible?: boolean;
 }
 
@@ -14,19 +15,19 @@ const routes: RouteConfig[] = [
   {
     name: 'Home',
     path: '/',
-    element: <Home />,
+    component: Home,
     visible: true,
   },
   {
     name: 'My Product',
     path: '/my-product',
-    element: <MyProduct />,
+    component: MyProduct,
     visible: true,
   },
   {
     name: 'Admin GolaMart',
     path: '/admin/golamart',
-    element: <AdminGolaMart />,
+    component: AdminGolaMart,
   },
 ];
 
