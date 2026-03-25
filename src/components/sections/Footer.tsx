@@ -17,7 +17,7 @@ export default function Footer() {
       { name: 'My Products', href: '/#my-products' },
       { name: 'GolaMart', href: '/my-product' },
       { name: 'Admin Dashboard', href: '/admin/golamart' },
-      { name: 'WhatsApp Support', href: 'https://wa.me/919876543210' }
+      { name: 'WhatsApp Support', href: 'https://wa.me/918294886251' }
     ],
     business: [
       { name: 'AapnBazaar Marketplace', href: '/#product-AapnBazaar' },
@@ -55,9 +55,11 @@ export default function Footer() {
               <Mail className="h-5 w-5 text-primary" />
               <a
                 href="mailto:contact@aapnbazaar.com"
+                href="mailto:kmk@aapnbazaar.com"
                 className="text-muted-foreground hover:text-primary transition-colors"
               >
                 contact@aapnbazaar.com
+                kmk@aapnbazaar.com
               </a>
             </div>
           </div>
