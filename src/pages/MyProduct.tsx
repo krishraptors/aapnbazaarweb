@@ -138,6 +138,59 @@ const indiaCropCategories = [
   },
 ];
 
+const indiaMarketModes = [
+  {
+    title: 'National sourcing mode',
+    detail: 'Compare Bihar supply with other state markets before locking a buyer order.',
+  },
+  {
+    title: 'Category planning mode',
+    detail: 'Group cereals, pulses, oilseeds, vegetables, fruits, fiber, and spices into one board.',
+  },
+  {
+    title: 'Trade expansion mode',
+    detail: 'Help GolaMart feel like an India-ready marketplace instead of a single-state listing page.',
+  },
+];
+
+const indiaSourcingRegions = [
+  {
+    title: 'North grain belt',
+    states: 'Bihar, Uttar Pradesh, Punjab, Haryana',
+    description: 'Good for paddy, wheat, and maize boards tied to mill buyers, wholesalers, and bulk mandi procurement.',
+  },
+  {
+    title: 'Central pulse and oilseed ring',
+    states: 'Madhya Pradesh, Rajasthan, Gujarat',
+    description: 'Useful for chana, soybean, mustard, and groundnut sourcing when buyers need broader commodity coverage.',
+  },
+  {
+    title: 'West fiber and spice route',
+    states: 'Gujarat, Maharashtra, Rajasthan',
+    description: 'Supports cotton, chilli, turmeric, and processing-linked spice or fiber trade beyond Bihar.',
+  },
+  {
+    title: 'South fresh and plantation lane',
+    states: 'Karnataka, Andhra Pradesh, Tamil Nadu, Kerala',
+    description: 'Helps the board include banana, vegetables, spices, and year-round produce movement.',
+  },
+];
+
+const indiaBoardUseCases = [
+  {
+    title: 'Procurement comparison desk',
+    description: 'Buyers can compare Bihar-first supply with other state lanes before finalizing volume, season, and price range.',
+  },
+  {
+    title: 'Marketplace growth layer',
+    description: 'This section shows how GolaMart can scale from a Bihar crop board into a wider India sourcing marketplace.',
+  },
+  {
+    title: 'Seller expansion path',
+    description: 'Farmer groups, traders, and aggregators from multiple states can fit into one structured board instead of disconnected pages.',
+  },
+];
+
 const quickCropSearches = ['Paddy', 'White Wheat', 'Maize', 'Makhana', 'Litchi', 'Mustard'];
 const marketIntelligence = [
   {
@@ -847,6 +900,56 @@ export default function MyProduct() {
                   relevant across Bihar and wider India.
                 </p>
 
+                <div className="mt-6 grid gap-4 md:grid-cols-3">
+                  <div className="rounded-[24px] border border-white/10 bg-white/8 p-4">
+                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/68">
+                      State coverage
+                    </p>
+                    <p className="font-heading mt-2 text-3xl font-semibold text-white">
+                      {representedStates}
+                    </p>
+                    <p className="mt-2 text-sm leading-6 text-white/72">
+                      Live listing states already represented inside the marketplace board.
+                    </p>
+                  </div>
+                  <div className="rounded-[24px] border border-white/10 bg-white/8 p-4">
+                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/68">
+                      Crop families
+                    </p>
+                    <p className="font-heading mt-2 text-3xl font-semibold text-white">
+                      {indiaCropCategories.length}
+                    </p>
+                    <p className="mt-2 text-sm leading-6 text-white/72">
+                      Broad crop groups that let the platform move beyond one mandi segment.
+                    </p>
+                  </div>
+                  <div className="rounded-[24px] border border-white/10 bg-white/8 p-4">
+                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/68">
+                      Search-ready board
+                    </p>
+                    <p className="font-heading mt-2 text-3xl font-semibold text-white">
+                      {quickCropSearches.length}+
+                    </p>
+                    <p className="mt-2 text-sm leading-6 text-white/72">
+                      Quick crop prompts pushing buyers into faster national discovery flows.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="mt-6 grid gap-4 md:grid-cols-3">
+                  {indiaMarketModes.map((item) => (
+                    <div
+                      key={item.title}
+                      className="rounded-[24px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.1),rgba(255,255,255,0.05))] p-4"
+                    >
+                      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-lime-200/90">
+                        {item.title}
+                      </p>
+                      <p className="mt-2 text-sm leading-6 text-white/78">{item.detail}</p>
+                    </div>
+                  ))}
+                </div>
+
                 <div className="mt-6 grid gap-4 sm:grid-cols-2">
                   {indiaCropCategories.map((category) => (
                     <div
@@ -868,6 +971,32 @@ export default function MyProduct() {
                       </div>
                     </div>
                   ))}
+                </div>
+
+                <div className="mt-6 rounded-[26px] border border-white/10 bg-white/8 p-5">
+                  <div className="flex items-start justify-between gap-4">
+                    <div>
+                      <p className="text-sm font-semibold uppercase tracking-[0.22em] text-white/70">
+                        Active state lanes
+                      </p>
+                      <h3 className="font-heading mt-2 text-2xl font-semibold text-white">
+                        Visible sourcing spread across the current live board
+                      </h3>
+                    </div>
+                    <div className="rounded-full bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-white/74">
+                      Live spread
+                    </div>
+                  </div>
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    {stateOptions.slice(0, 12).map((state) => (
+                      <span
+                        key={state}
+                        className="rounded-full border border-white/10 bg-white/10 px-3 py-1.5 text-xs font-semibold text-white/82"
+                      >
+                        {state}
+                      </span>
+                    ))}
+                  </div>
                 </div>
 
                 <div className="mt-6 grid gap-4 lg:grid-cols-[0.92fr_1.08fr]">
@@ -918,6 +1047,68 @@ export default function MyProduct() {
                         >
                           <p className="font-heading text-lg font-semibold text-white">{item.title}</p>
                           <p className="mt-2 text-sm leading-6 text-white/72">{item.description}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mt-6 grid gap-4 lg:grid-cols-[1.02fr_0.98fr]">
+                  <div className="rounded-[26px] border border-white/10 bg-white/8 p-5">
+                    <div className="flex items-start justify-between gap-4">
+                      <div>
+                        <p className="text-sm font-semibold uppercase tracking-[0.22em] text-white/70">
+                          India sourcing regions
+                        </p>
+                        <h3 className="font-heading mt-2 text-2xl font-semibold text-white">
+                          Wider state clusters for grain, pulses, oilseed, fiber, and fresh trade
+                        </h3>
+                      </div>
+                      <div className="rounded-full bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-white/74">
+                        Expansion map
+                      </div>
+                    </div>
+
+                    <div className="mt-5 grid gap-3">
+                      {indiaSourcingRegions.map((item) => (
+                        <div
+                          key={item.title}
+                          className="rounded-[22px] border border-white/10 bg-white/6 p-4"
+                        >
+                          <div className="flex flex-wrap items-center justify-between gap-3">
+                            <p className="font-heading text-lg font-semibold text-white">
+                              {item.title}
+                            </p>
+                            <span className="rounded-full bg-white/10 px-3 py-1 text-xs font-semibold text-white/76">
+                              {item.states}
+                            </span>
+                          </div>
+                          <p className="mt-2 text-sm leading-6 text-white/72">{item.description}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="rounded-[26px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.09),rgba(255,255,255,0.05))] p-5">
+                    <p className="text-sm font-semibold uppercase tracking-[0.22em] text-white/70">
+                      Board use cases
+                    </p>
+                    <h3 className="font-heading mt-2 text-2xl font-semibold text-white">
+                      Why this India crop map matters inside GolaMart
+                    </h3>
+
+                    <div className="mt-5 space-y-3">
+                      {indiaBoardUseCases.map((item) => (
+                        <div
+                          key={item.title}
+                          className="rounded-[22px] border border-white/10 bg-white/8 p-4"
+                        >
+                          <p className="font-heading text-lg font-semibold text-white">
+                            {item.title}
+                          </p>
+                          <p className="mt-2 text-sm leading-6 text-white/74">
+                            {item.description}
+                          </p>
                         </div>
                       ))}
                     </div>
