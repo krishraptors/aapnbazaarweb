@@ -55,17 +55,12 @@ export default function Footer() {
               <Mail className="h-5 w-5 text-primary" />
               <a
                 href="mailto:contact@aapnbazaar.com"
-                href="mailto:kmk@aapnbazaar.com"
                 className="text-muted-foreground hover:text-primary transition-colors"
               >
-                contact@aapnbazaar.com
-                <span>
-                kmk@aapnbazaar.com
-                </span>
+              contact@aapnbazaar.com
               </a>
             </div>
           </div>
-
           {/* Links sections */}
           <div>
             <h4 className="font-semibold mb-4">Company</h4>
