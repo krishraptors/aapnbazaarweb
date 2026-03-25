@@ -59,7 +59,9 @@ export default function Footer() {
                 className="text-muted-foreground hover:text-primary transition-colors"
               >
                 contact@aapnbazaar.com
+                <span>
                 kmk@aapnbazaar.com
+                </span>
               </a>
             </div>
           </div>
